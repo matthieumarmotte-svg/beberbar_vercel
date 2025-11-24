@@ -1,51 +1,47 @@
 export const config = {
   api: {
-    bodyParser: false, // On désactive pour gérer nous-mêmes
+    bodyParser: false,
   },
 };
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(200).json({ message: "OK" });
+    return res.status(200).json({ ok: true, message: "Ready" });
   }
 
-  // Lire le RAW body depuis la requête (spécifique à Vercel)
+  const TELEGRAM_BOT_TOKEN = "8449993558:AAE8DBnTMqoMAaRedgCszQEltTW1fVNOYAg";  
+  const TELEGRAM_CHAT_ID = "6211317081";
+
   const rawBody = await new Promise((resolve) => {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString();
-    });
-    req.on("end", () => {
-      resolve(body);
-    });
+    let data = "";
+    req.on("data", (chunk) => (data += chunk));
+    req.on("end", () => resolve(data));
   });
 
-  let bodyJson = {};
+  let update = {};
   try {
-    bodyJson = JSON.parse(rawBody);
-  } catch (e) {
-    console.error("Erreur parsing JSON:", e);
+    update = JSON.parse(rawBody);
+  } catch (err) {
+    console.error("Erreur JSON :", err);
   }
 
-  // Récupération du message Telegram
-  const userMessage = bodyJson?.message?.text || "Message vide";
+  console.log("Message reçu :", update);
 
-  // Envoi au Telegram ADMIN
-  const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-  const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+  const userMessage = update?.message?.text || "(aucun message)";
 
-  const sendUrl = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+  const sendUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
-  const telegramResponse = await fetch(sendUrl, {
+  const response = await fetch(sendUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      chat_id: CHAT_ID,
+      chat_id: TELEGRAM_CHAT_ID,
       text: `Nouvelle commande : ${userMessage}`,
     }),
   });
 
-  const data = await telegramResponse.json();
+  const result = await response.json();
+  console.log("Réponse Telegram :", result);
 
-  return res.status(200).json({ ok: true, messageSent: data });
+  return res.status(200).json({ ok: true });
 }
