@@ -1,16 +1,27 @@
-export async function handler(event) {
-  const data = JSON.parse(event.body); // récupère le message envoyé depuis le navigateur
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(200).json({ message: "OK" });
+  }
 
-  const response = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+  
+  const body = req.body;
+
+  const userMessage = body?.message?.text || "Message vide";
+  
+  const sendUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+  const result = await fetch(sendUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: data.message,
-      parse_mode: "Markdown"
-    })
+      chat_id: TELEGRAM_CHAT_ID,
+      text: `Nouvelle commande : ${userMessage}`,
+    }),
   });
 
-  const result = await response.json();
-  return { statusCode: 200, body: JSON.stringify(result) };
+  const data = await result.json();
+
+  return res.status(200).json({ ok: true, telegram: data });
 }
