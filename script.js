@@ -70,7 +70,7 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
 
   message += `\n💰 Total : ${total.toFixed(2)} €`;
 
-  fetch("/.netlify/functions/telegram", {
+  fetch("/api/telegram", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ message }),
@@ -84,3 +84,4 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
       alert("❌ Erreur d’envoi. Réessayez plus tard.");
     });
 });
+
