@@ -1,3 +1,7 @@
+// ============================
+//      GESTION DES BOISSONS
+// ============================
+
 const boissons = document.querySelectorAll(".boisson");
 const totalElement = document.getElementById("total");
 
@@ -5,17 +9,16 @@ boissons.forEach((boisson) => {
   const moins = boisson.querySelector(".moins");
   const plus = boisson.querySelector(".plus");
   const input = boisson.querySelector("input");
-  const prix = parseFloat(boisson.dataset.prix);
 
   const updateTotal = () => {
     let total = 0;
     document.querySelectorAll(".boisson").forEach((b) => {
       const qte = parseInt(b.querySelector("input").value) || 0;
-      const prixBoisson = parseFloat(b.dataset.prix);
+      const prix = parseFloat(b.dataset.prix);
       const supplement = parseFloat(b.dataset.supplement) || 0;
 
       if (qte > 0) {
-        total += qte * prixBoisson + supplement;
+        total += qte * prix + supplement;
       }
     });
     totalElement.textContent = total.toFixed(2);
@@ -34,18 +37,12 @@ boissons.forEach((boisson) => {
   input.addEventListener("input", updateTotal);
 });
 
-function showConfirmation() {
-  alert("✅ Votre commande a été envoyée ! Elle arrive bientôt 🍹");
-  return true;
-}
+// ============================
+//      GESTION DE LA COMMANDE
+// ============================
 
-// === CONFIG BOT ===
-const TELEGRAM_BOT_TOKEN = "8449993558:AAE8DBnTMqoMAaRedgCszQEltTW1fVNOYAg";
-const TELEGRAM_CHAT_ID = "6211317081";
-
-// === ENVOI AUTOMATIQUE SUR TELEGRAM ===
 document.getElementById("commande-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+  e.preventDefault(); // rester sur la même page
 
   const formData = new FormData(this);
   const prenom = formData.get("prenom");
@@ -55,6 +52,7 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
   let message = `🍹 *Nouvelle commande !*\n👤 ${prenom} ${nom} ${insta}\n\n`;
 
   let total = 0;
+
   document.querySelectorAll(".boisson").forEach((b) => {
     const nomBoisson = b.querySelector("h3").innerText.split("—")[0].trim();
     const prix = parseFloat(b.dataset.prix);
@@ -70,7 +68,10 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
 
   message += `\n💰 Total : ${total.toFixed(2)} €`;
 
-  // === VERSION VERCEL (correcte) ===
+  // ============================
+  //         ENVOI TELEGRAM
+  // ============================
+
   fetch("/api/telegram", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -81,8 +82,7 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
     }),
   })
     .then(() => {
-      alert("✅ Votre commande a été envoyée ! Elle arrive bientôt 🍹");
-      e.target.submit(); // envoie ensuite le formulaire (Netlify Forms)
+      alert("✅ Votre commande a été envoyée !");
     })
     .catch((err) => {
       console.error(err);
