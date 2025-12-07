@@ -9,20 +9,19 @@
 <body>
   <header>
     <h1>BEBER BAR 🎉</h1>
-    <p>Tkt on a une licence 4 🙄</p>
-    <p>(⚠️ La nouvelle CARTE arrive la semaine prochaine ⚠️)</p>
+    <p>Homemade • Cocktails</p>
+    <p>Fait maison avec le ❤️</p>
   </header>
 
   <main>
-    <form name="commande" method="POST" data-netlify="true" id="commande-form" onsubmit="return showConfirmation()">
+    <form name="commande" method="POST" data-netlify="true" id="commande-form">
 
-      <!-- === COCKTAILS === -->
       <div class="categorie">
-        <h2>Cocktails 🍸</h2>
+        <h2>Cocktails et Spritz 🍸</h2>
         <div class="boissons">
 
-          <div class="boisson" data-prix="2.2" data-supplement="4">
-            <h3>Porn Star Martini — 2.2€ + 4€ </h3>
+          <div class="boisson" data-prix="2.5">
+            <h3>Porn Star Martini — 2.5€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Porn Star Martini" value="0" min="0" />
@@ -31,7 +30,7 @@
           </div>
 
           <div class="boisson" data-prix="1.7" data-supplement="9">
-            <h3>Spritz Saint-Germain — 1.7€ + 9€ par bouteille de prosecco</h3>
+            <h3>Spritz Saint-Germain — 1.7€ (+9€ Prosecco)</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Spritz Saint-Germain" value="0" min="0" />
@@ -49,10 +48,46 @@
           </div>
 
           <div class="boisson" data-prix="2.5">
-            <h3>Rhum Spéculos - Café — 2.5€</h3>
+            <h3>Rhum Spéculos – Café — 2.5€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Rhum Spéculos" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="2.5" data-supplement="0.7">
+            <h3>Lavender Spritz — 2.5€ (+0.7€ ouverture)</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Lavender Spritz" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="2.2" data-supplement="0.7">
+            <h3>Mojito Simple — 2.2€ (+0.7€ ouverture)</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Mojito Simple" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+          
+           <div class="boisson" data-prix="2.8">
+            <h3>Mojito Fruit — 2.8€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Mojito Fruit" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="1.5">
+            <h3>Black Lime — 1.5€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Black Lime" value="0" min="0" />
               <button type="button" class="plus">+</button>
             </div>
           </div>
@@ -66,33 +101,69 @@
             </div>
           </div>
 
-          <div class="boisson" data-prix="2.0">
-            <h3>Mule Tiger — 2€ + 3€ crazy/perrier d'ouverture</h3>
+          <div class="boisson" data-prix="2.0" data-supplement="0.7">
+            <h3>Malibu Fizz — 2€ (+0.7€ ouverture)</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Malibu Fizz" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="1.8" data-supplement="3">
+            <h3>Mule Tiger — 1.8€ (+3€ Crazy/Perrier)</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Mule Tiger" value="0" min="0" />
               <button type="button" class="plus">+</button>
             </div>
           </div>
-          
-          <div class="boisson" data-prix="1.5">
-            <h3>Black Lime — 1.5€</h3>
+
+          <div class="boisson" data-prix="1.5" data-supplement="3">
+            <h3>Cuba Libre — 1.5€ (+3€ ouverture)</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
-              <input type="number" name="Black Lime" value="0" min="0" />
+              <input type="number" name="Cuba Libre" value="0" min="0" />
               <button type="button" class="plus">+</button>
             </div>
           </div>
+
+          <div class="boisson" data-prix="2.4">
+            <h3>Ultraviolet — 2.4€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Ultraviolet" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="2.0">
+            <h3>Goodmother — 2€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Goodmother" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+          
+           <div class="boisson" data-prix="2.0">
+            <h3>Lait Brûlé — 2€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Lait Brule" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- === SHOOTERS === -->
       <div class="categorie">
         <h2>Shooters 🔫</h2>
         <div class="boissons">
 
-          <div class="boisson" data-prix="1.5">
-            <h3>Vodka Caramel 4cl — 1.2€ - 10€ le mètre</h3>
+          <div class="boisson" data-prix="1.2">
+            <h3>Vodka Caramel 3,4cl — 1.2€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Vodka Caramel" value="0" min="0" />
@@ -100,8 +171,8 @@
             </div>
           </div>
 
-          <div class="boisson" data-prix="1.5" data-supplement="9">
-            <h3>Jager Bomb — 1.5€ + 3€ par bouteille de crazy</h3>
+          <div class="boisson" data-prix="1.5" data-supplement="3">
+            <h3>Jager Bomb — 1.5€ (+3€ Crazy)</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Jager Bomb" value="0" min="0" />
@@ -110,7 +181,7 @@
           </div>
 
           <div class="boisson" data-prix="1.5">
-            <h3>Baby Guinness 4cl — 1.5€ - 12€ le mètre</h3>
+            <h3>Baby Guinness 3,4cl — 1.5€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Baby Guinness" value="0" min="0" />
@@ -118,8 +189,8 @@
             </div>
           </div>
 
-          <div class="boisson" data-prix="1">
-            <h3>Vodka Black 4cl — 1.2€ - 10€ le mètre</h3>
+          <div class="boisson" data-prix="1.2">
+            <h3>Vodka Black 3,4cl — 1.2€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Vodka Black" value="0" min="0" />
@@ -127,10 +198,18 @@
             </div>
           </div>
 
+          <div class="boisson" data-prix="1.0">
+            <h3>Madeleine — 1€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Madeleine" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- === LIQUEURS === -->
       <div class="categorie">
         <h2>Liqueurs 🍶</h2>
         <div class="boissons">
@@ -144,15 +223,32 @@
             </div>
           </div>
 
+          <div class="boisson" data-prix="1.75">
+            <h3>Hydromel — 1.75€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Hydromel" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
+          <div class="boisson" data-prix="1.75">
+            <h3>Liqueur de biscuit — 1.75€</h3>
+            <div class="quantite">
+              <button type="button" class="moins">-</button>
+              <input type="number" name="Liqueur de Biscuit" value="0" min="0" />
+              <button type="button" class="plus">+</button>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- === SPIRITUEUX === -->
       <div class="categorie">
         <h2>Spiritueux 🥃</h2>
         <div class="boissons">
 
-          <div class="boisson" data-prix="2">
+          <div class="boisson" data-prix="2.0">
             <h3>Jack Daniel's 5cl — 2€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
@@ -165,14 +261,13 @@
             <h3>Pastis 5cl — 1.5€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
-              <input type="number" name="Bailey" value="0" min="0" />
+              <input type="number" name="Pastis" value="0" min="0" />
               <button type="button" class="plus">+</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- === BIÈRES === -->
       <div class="categorie">
         <h2>Bières 🍺</h2>
         <div class="boissons">
@@ -181,13 +276,13 @@
             <h3>Leffe Blonde 25cl — 1.2€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
-              <input type="number" name="Heineken" value="0" min="0" />
+              <input type="number" name="Leffe Blonde" value="0" min="0" />
               <button type="button" class="plus">+</button>
             </div>
           </div>
-
-          <div class="boisson" data-prix="1">
-            <h3>HEINEKEN 25cl — 1€</h3>
+          
+           <div class="boisson" data-prix="1.0">
+            <h3>Heineken 25cl — 1€</h3>
             <div class="quantite">
               <button type="button" class="moins">-</button>
               <input type="number" name="Heineken" value="0" min="0" />
@@ -198,21 +293,19 @@
         </div>
       </div>
 
-      <!-- === INFOS CLIENT === -->
       <div class="infos-client">
         <label>Prénom :</label>
-        <input type="text" name="prenom" required />
+        <input type="text" name="prenom" required placeholder="Ton prénom" />
 
         <label>Nom :</label>
-        <input type="text" name="nom" required />
+        <input type="text" name="nom" required placeholder="Ton nom" />
 
         <label>Insta :</label>
-        <input type="text" name="insta" required />
+        <input type="text" name="insta" required placeholder="@ton_insta" />
       </div>
 
-      <!-- === TOTAL === -->
       <div class="total">
-        <p>Total : <span id="total">0</span> €</p>
+        <p>Total : <span id="total">0.00</span> €</p>
       </div>
 
       <button type="submit" class="btn-commande">Commander 🍹</button>
@@ -226,7 +319,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
