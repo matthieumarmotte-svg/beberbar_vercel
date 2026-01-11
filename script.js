@@ -18,7 +18,7 @@ boissons.forEach((boisson) => {
       const supplement = parseFloat(b.dataset.supplement) || 0;
 
       if (qte > 0) {
-        // Le total affiché sur le site reste le montant exact à payer (boisson + ouverture)
+        // Le total sur l'écran du site reste le montant EXACT à payer par le client
         total += qte * prix + supplement;
       }
     });
@@ -56,24 +56,25 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
   let totalSupplements = 0;
 
   document.querySelectorAll(".boisson").forEach((b) => {
+    // On récupère juste le nom de la boisson (on coupe avant le tiret "—" pour enlever le prix et le texte d'ouverture)
     const nomBoisson = b.querySelector("h3").innerText.split("—")[0].trim();
     const prix = parseFloat(b.dataset.prix);
     const supplement = parseFloat(b.dataset.supplement) || 0;
     const qte = parseInt(b.querySelector("input").value) || 0;
 
     if (qte > 0) {
-      // Calcul du prix juste pour les boissons (sans l'ouverture)
+      // Pour le message Telegram : on calcule le prix de la boisson SANS l'ouverture
       const prixLigneBoisson = qte * prix;
       
-      // On ajoute la ligne au message avec seulement le prix des boissons
+      // On ajoute la ligne au message (ex: Spritz x1 -> 1.70€)
       message += `• ${nomBoisson} x${qte} → ${prixLigneBoisson.toFixed(2)}€\n`;
       
-      // On cumule les suppléments à part
+      // On met le supplément de côté pour l'additionner à la fin
       if (supplement > 0) {
           totalSupplements += supplement;
       }
 
-      // Calcul du total réel à payer (Boissons + Suppléments)
+      // Le total global, lui, inclut tout
       totalGlobal += prixLigneBoisson + supplement;
     }
   });
