@@ -11,18 +11,18 @@ boissons.forEach((boisson) => {
   const input = boisson.querySelector("input");
 
   const updateTotal = () => {
-    let total = 0;
+    let totalVisuel = 0;
     document.querySelectorAll(".boisson").forEach((b) => {
       const qte = parseInt(b.querySelector("input").value) || 0;
       const prix = parseFloat(b.dataset.prix);
-      const supplement = parseFloat(b.dataset.supplement) || 0;
-
+      
+      // ICI : On ne calcule QUE le prix de base pour l'affichage client
+      // On ignore le supplement (frais d'ouverture) pour le total écran
       if (qte > 0) {
-        // Le total sur l'écran du site reste le montant EXACT à payer par le client
-        total += qte * prix + supplement;
+        totalVisuel += qte * prix; 
       }
     });
-    totalElement.textContent = total.toFixed(2);
+    totalElement.textContent = totalVisuel.toFixed(2);
   };
 
   moins.addEventListener("click", () => {
@@ -52,39 +52,40 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
 
   let message = `🍹 *Nouvelle commande !*\n👤 ${prenom} ${nom} ${insta}\n\n`;
 
-  let totalGlobal = 0;
-  let totalSupplements = 0;
+  let totalGlobalReel = 0; // Le vrai total (pour toi)
+  let totalSupplements = 0; // Le total des ouvertures
 
   document.querySelectorAll(".boisson").forEach((b) => {
-    // On récupère juste le nom de la boisson (on coupe avant le tiret "—" pour enlever le prix et le texte d'ouverture)
+    // On récupère le nom propre
     const nomBoisson = b.querySelector("h3").innerText.split("—")[0].trim();
     const prix = parseFloat(b.dataset.prix);
     const supplement = parseFloat(b.dataset.supplement) || 0;
     const qte = parseInt(b.querySelector("input").value) || 0;
 
     if (qte > 0) {
-      // Pour le message Telegram : on calcule le prix de la boisson SANS l'ouverture
+      // Prix de la ligne (juste la boisson)
       const prixLigneBoisson = qte * prix;
       
-      // On ajoute la ligne au message (ex: Spritz x1 -> 1.70€)
+      // On ajoute la ligne au message Telegram
       message += `• ${nomBoisson} x${qte} → ${prixLigneBoisson.toFixed(2)}€\n`;
       
-      // On met le supplément de côté pour l'additionner à la fin
+      // Calcul des totaux pour toi
       if (supplement > 0) {
-          totalSupplements += supplement;
+          totalSupplements += supplement; // On cumule les ouvertures
       }
-
-      // Le total global, lui, inclut tout
-      totalGlobal += prixLigneBoisson + supplement;
+      
+      // Le total global inclut tout (boisson + ouverture)
+      totalGlobalReel += prixLigneBoisson + supplement;
     }
   });
 
-  // Si on a des frais d'ouverture, on les affiche en une seule ligne à la fin
+  // Affichage des suppléments séparés dans Telegram
   if (totalSupplements > 0) {
       message += `\n🍾 Total Ouvertures : ${totalSupplements.toFixed(2)} €`;
   }
 
-  message += `\n\n💰 Total à payer : ${totalGlobal.toFixed(2)} €`;
+  // Affichage du vrai total à encaisser dans Telegram
+  message += `\n\n💰 Total à payer : ${totalGlobalReel.toFixed(2)} €`;
 
   // ============================
   //         ENVOI TELEGRAM
