@@ -18,6 +18,7 @@ boissons.forEach((boisson) => {
       const supplement = parseFloat(b.dataset.supplement) || 0;
 
       if (qte > 0) {
+        // Le total affiché sur le site reste le montant exact à payer (boisson + ouverture)
         total += qte * prix + supplement;
       }
     });
@@ -51,7 +52,8 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
 
   let message = `🍹 *Nouvelle commande !*\n👤 ${prenom} ${nom} ${insta}\n\n`;
 
-  let total = 0;
+  let totalGlobal = 0;
+  let totalSupplements = 0;
 
   document.querySelectorAll(".boisson").forEach((b) => {
     const nomBoisson = b.querySelector("h3").innerText.split("—")[0].trim();
@@ -60,13 +62,28 @@ document.getElementById("commande-form").addEventListener("submit", function (e)
     const qte = parseInt(b.querySelector("input").value) || 0;
 
     if (qte > 0) {
-      const sousTotal = qte * prix + supplement;
-      message += `• ${nomBoisson} x${qte} → ${sousTotal.toFixed(2)}€\n`;
-      total += sousTotal;
+      // Calcul du prix juste pour les boissons (sans l'ouverture)
+      const prixLigneBoisson = qte * prix;
+      
+      // On ajoute la ligne au message avec seulement le prix des boissons
+      message += `• ${nomBoisson} x${qte} → ${prixLigneBoisson.toFixed(2)}€\n`;
+      
+      // On cumule les suppléments à part
+      if (supplement > 0) {
+          totalSupplements += supplement;
+      }
+
+      // Calcul du total réel à payer (Boissons + Suppléments)
+      totalGlobal += prixLigneBoisson + supplement;
     }
   });
 
-  message += `\n💰 Total : ${total.toFixed(2)} €`;
+  // Si on a des frais d'ouverture, on les affiche en une seule ligne à la fin
+  if (totalSupplements > 0) {
+      message += `\n🍾 Total Ouvertures : ${totalSupplements.toFixed(2)} €`;
+  }
+
+  message += `\n\n💰 Total à payer : ${totalGlobal.toFixed(2)} €`;
 
   // ============================
   //         ENVOI TELEGRAM
