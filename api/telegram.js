@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, message: "Ready" });
   }
 
-  const TELEGRAM_BOT_TOKEN = "8449993558:AAE8DBnTMqoMAaRedgCszQEltTW1fVNOYAg";  
+  const TELEGRAM_BOT_TOKEN = "8592876028:AAEfikQl9SHpk422JVeV9j2FUPHmlBexI5M";  
   const TELEGRAM_CHAT_ID = "6211317081";
 
   const rawBody = await new Promise((resolve) => {
